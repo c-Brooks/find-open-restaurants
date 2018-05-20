@@ -23,9 +23,8 @@ import (
 // * The CSV file will be well-formed
 
 type restaurant struct {
-	name     string
-	rawHours string
-	hours    hours.Hours
+	name  string
+	hours hours.Hours
 }
 
 func main() {
@@ -126,9 +125,8 @@ func toRestaurant(name string, rawHours string) (*restaurant, error) {
 	}
 
 	r := &restaurant{
-		name:     name,
-		rawHours: rawHours,
-		hours:    hrs,
+		name:  name,
+		hours: hrs,
 	}
 
 	return r, nil
