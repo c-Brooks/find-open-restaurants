@@ -30,6 +30,11 @@ type restaurant struct {
 func main() {
 	t := time.Now()
 
+	// t, err := time.Parse(time.ANSIC, "Sat May 21 01:00:00 2018")
+	// if err != nil {
+	// 	panic(err)
+	// }
+
 	openRestaurants := findOpenRestaurants("restaurants.csv", t)
 
 	logrus.Infof("found %d restaurants open for %s:", len(openRestaurants), t.Format(time.RFC822))
@@ -119,7 +124,7 @@ func parseCSV(csvRows [][]string) ([]restaurant, error) {
 }
 
 func toRestaurant(name string, rawHours string) (*restaurant, error) {
-	hrs, err := parser.FromString(rawHours)
+	hrs, err := parser.HoursFromString(rawHours)
 	if err != nil {
 		return nil, err
 	}

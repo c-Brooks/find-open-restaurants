@@ -114,7 +114,7 @@ func parseTimeTokens(startTimeStr, endTimeStr string) hours.TimeRange {
 	return hours.TimeRange{hours.TimeOfDay{startTime}, hours.TimeOfDay{endTime}}
 }
 
-// FromString parses the CSV rows into Hours
+// HoursFromString parses the CSV rows into Hours
 // rows have this format:
 //
 // Mon-Thu, Sun 11:30 am - 10 pm  / Sat 5:30 pm - 10 pm
@@ -123,7 +123,7 @@ func parseTimeTokens(startTimeStr, endTimeStr string) hours.TimeRange {
 // day(s) - can be one day or a range (if there's a hyphen separating), or a mix
 // timeRange - always two times of day, separated by spaces and a hyphen
 // slash - denotes different rules separator
-func FromString(row string) (hours.Hours, error) {
+func HoursFromString(row string) (hours.Hours, error) {
 	hrs := make(hours.Hours, len(row))
 
 	// handle case when there are multiple rules
@@ -132,7 +132,7 @@ func FromString(row string) (hours.Hours, error) {
 		rules := strings.Split(row, ruleSeparatorToken)
 
 		for _, rule := range rules {
-			hoursForRule, err := FromString(rule)
+			hoursForRule, err := HoursFromString(rule)
 			if err != nil {
 				return nil, err
 			}

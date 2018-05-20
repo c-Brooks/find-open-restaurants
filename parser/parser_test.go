@@ -16,7 +16,7 @@ type testCase struct {
 func TestParse(t *testing.T) {
 	testCases := prepareData()
 	for i, tc := range testCases {
-		actual, err := FromString(tc.row)
+		actual, err := HoursFromString(tc.row)
 		if err != nil {
 			t.Error(err)
 			t.Fail()
@@ -45,6 +45,15 @@ func prepareData() []testCase {
 				time.Friday:    elevenToEleven,
 				time.Saturday:  elevenToEleven,
 				time.Sunday:    elevenToTen,
+			},
+		},
+		testCase{
+			row: "Mon-Tue, Fri 11 am - 11 pm  / Sun 11 am - 10 pm",
+			expected: hours.Hours{
+				time.Monday:  elevenToEleven,
+				time.Tuesday: elevenToEleven,
+				time.Friday:  elevenToEleven,
+				time.Sunday:  elevenToTen,
 			},
 		},
 	}
